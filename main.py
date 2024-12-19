@@ -24,54 +24,75 @@ class TASK(db.Model):
 # @ Todos =================================================================
 @app.route('/')
 def index():
-    data = TODO.query.all()
-    return render_template('index.html.j2', todos = data)
+    try:
+        data = TODO.query.all()
+        return render_template('index.html.j2', todos=data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/todo-detail/<int:id>', methods=['GET'])
 def todoDetail(id):
-    todo = TODO.query.get(id)
-    tasks = TASK.query.filter_by(todo_id=id).all()
-    return render_template('todo_detail.html.j2', todo = todo, tasks = tasks)
+    try:
+        todo = TODO.query.get(id)
+        tasks = TASK.query.filter_by(todo_id=id).all()
+        # tasks = db.session.query(TASK).join(TODO).filter(TASK.todo_id == id).all()
+        return render_template('todo_detail.html.j2', todo=todo, tasks=tasks)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/create-todo', methods=['POST'])
 def createTodo():
-    nombre = request.form.get('name')
-    todo = TODO(nombre=nombre)
-    db.session.add(todo)
-    db.session.commit()
-    return jsonify({'message': 'Todo creado correctamente'})
+    try:
+        nombre = request.form.get('name')
+        todo = TODO(nombre=nombre)
+        db.session.add(todo)
+        db.session.commit()
+        return jsonify({'message': 'Todo creado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/delete-todo/<int:id>', methods=['DELETE'])
 def deleteTodo(id):
-    todo = TODO.query.get(id)
-    db.session.delete(todo)
-    db.session.commit()
-    return jsonify({'message': 'Todo eliminado correctamente'})
-
+    try:
+        todo = TODO.query.with_for_update().get(id)
+        db.session.delete(todo)
+        db.session.commit()
+        return jsonify({'message': 'Todo eliminado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # @ Tasks =================================================================
 @app.route('/create-task', methods=['POST'])
 def createTask():
-    nombre = request.form.get('name')
-    todo_id = request.form.get('todo_id')
-    task = TASK(nombre=nombre, todo_id=todo_id)
-    db.session.add(task)
-    db.session.commit()
-    return jsonify({'message': 'Task creado correctamente'})
+    try:
+        nombre = request.form.get('name')
+        todo_id = request.form.get('todo_id')
+        task = TASK(nombre=nombre, todo_id=todo_id)
+        db.session.add(task)
+        db.session.commit()
+        return jsonify({'message': 'Task creado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/delete-task/<int:id>', methods=['DELETE'])
 def deleteTask(id):
-    task = TASK.query.get(id)
-    db.session.delete(task)
-    db.session.commit()
-    return jsonify({'message': 'Task eliminado correctamente'})
+    try:
+        task = TASK.query.with_for_update().get(id)
+        db.session.delete(task)
+        db.session.commit()
+        return jsonify({'message': 'Task eliminado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/update-task/<int:id>', methods=['PUT'])
 def updateTask(id):
-    task = TASK.query.get(id)
-    task.nombre = request.form.get('name')
-    db.session.commit()
-    return jsonify({'message': 'Task actualizado correctamente'})
+    try:
+        task = TASK.query.with_for_update().get(id)
+        task.nombre = request.form.get('name')
+        db.session.commit()
+        return jsonify({'message': 'Task actualizado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 # @ Inicializar base de datos ============================================
