@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 display-4">Guía de Componentes de Bootstrap</h1>
+        <!-- Sistema de Columnas -->
+        <section class="mb-5">
+            <h2 class="display-6">Sistema de Columnas</h2>
+            <div class="row">
+                <div class="col-12  bg-light border">Columna completa (100%)</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-light border">50%</div>
+                <div class="col-6 bg-light border">50%</div>
+            </div>
+            <div class="row">
+                <div class="col-4 bg-light border">33%</div>
+                <div class="col-4 bg-light border">33%</div>
+                <div class="col-4 bg-light border">33%</div>
+            </div>
+            <div class="row">
+                <div class="col-3 bg-light border">25%</div>
+                <div class="col-3 bg-light border">25%</div>
+                <div class="col-3 bg-light border">25%</div>
+                <div class="col-3 bg-light border">25%</div>
+            </div>
+            <p class="mt-2">Utiliza <code>.row</code> y <code>.col-*</code> para crear rejillas responsivas. Las columnas deben estar contenidas dentro de filas.</p>
+        </section>
+
+        <!-- Alineación -->
+        <section class="mb-5">
+            <h2>Alineación</h2>
+            <h3>Alineación Horizontal</h3>
+            <div class="d-flex justify-content-start mb-2 bg-light border p-2">
+                <span class="bg-light border px-2">Inicio</span>
+            </div>
+            <div class="d-flex justify-content-center mb-2 bg-light border p-2">
+                <span class="bg-light border px-2">Centro</span>
+            </div>
+            <div class="d-flex justify-content-end mb-2 bg-light border p-2" >
+                <span class="bg-light border px-2">Fin</span>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2 bg-light border p-2">
+                <span class="bg-light border px-2">Entre</span>
+                <span class="bg-light border px-2">Elementos</span>
+            </div>
+            <div class="d-flex justify-content-around mb-2 bg-light border p-2">
+                <span class="bg-light border px-2">Alrededor</span>
+                <span class="bg-light border px-2">Espaciado</span>
+            </div>
+            <div class="d-flex justify-content-evenly bg-light border p-2">
+                <span class="bg-light border px-2">Distribución</span>
+                <span class="bg-light border px-2">Uniforme</span>
+            </div>
+
+            <h3 class="mt-4">Alineación Vertical</h3>
+            <div class="d-flex align-items-start bg-light" >
+                Inicio
+            </div>
+            <div class="d-flex align-items-center bg-light" >
+                Centro
+            </div>
+            <div class="d-flex align-items-end bg-light" >
+                Fin
+            </div>
+            <p class="mt-2">Usa clases como <code>.justify-content-*</code> para la alineación horizontal y <code>.align-items-*</code> para la alineación vertical.</p>
+        </section>
+
+        <!-- Botones -->
+        <section class="mb-5">
+            <h2>Botones</h2>
+            <button class="btn btn-primary">Botón Primario</button>
+            <button class="btn btn-secondary">Botón Secundario</button>
+            <p class="mt-2">Usa <code>.btn</code> y clases contextuales (por ejemplo, <code>.btn-primary</code>) para estilizar botones.</p>
+        </section>
+
+        <!-- Listas -->
+        <section class="mb-5">
+            <h2>Listas</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Elemento 1</li>
+                <li class="list-group-item">Elemento 2</li>
+                <li class="list-group-item">Elemento 3</li>
+            </ul>
+            <p class="mt-2">Usa <code>.list-group</code> y <code>.list-group-item</code> para crear listas estilizadas.</p>
+        </section>
+
+        <!-- Modales -->
+        <section class="mb-5">
+            <h2>Modales</h2>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Abrir Modal</button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Título del Modal</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            Este es un modal de Bootstrap.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-2">Usa <code>.modal</code> y clases relacionadas para modales. Actívalos con <code>data-bs-toggle="modal"</code>.</p>
+        </section>
+
+        <!-- Iconos -->
+        <section class="mb-5">
+            <h2>Iconos</h2>
+            <i class="bi bi-plus-lg"></i>
+            <i class="bi bi-trash"></i>
+            <p class="mt-2">Incluye Bootstrap Icons usando clases <code>bi bi-*</code>.</p>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

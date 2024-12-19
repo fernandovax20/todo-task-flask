@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import requests
 
 # @ Configuración de la aplicación =========================================
 app = Flask(__name__)
@@ -75,12 +76,24 @@ def updateTask(id):
 
 # @ Inicializar base de datos ============================================
 with app.app_context():
+    
+    def obtener_todos():
+        response = requests.get('https://dummyjson.com/todos?limit=10&skip=0')
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return {'error': 'No se pudo obtener los datos'}
+
     db.create_all()
     if not TODO.query.first():
         todo_data = [
             ('Crear frontend', ['Comprender requerimientos', 'diagramar flujos', 'desarrollar mock up']),
             ('Desarrollar Backend', []),
         ]
+
+        todos = obtener_todos()
+        todo_data = todo_data + [(todo["todo"], []) for todo in todos["todos"]]
+        # todo_data.extend([(todo["todo"], []) for todo in todos["todos"]])
 
         for nombre, tasks in todo_data:
             todo = TODO(nombre=nombre)
@@ -92,6 +105,7 @@ with app.app_context():
                 db.session.add(new_task)
 
         db.session.commit()
+
 
 # @ Inicializar Servicio ==============================================
 if __name__ == '__main__':
